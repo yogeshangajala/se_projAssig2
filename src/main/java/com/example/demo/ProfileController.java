@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,11 @@ public class ProfileController {
 		return indexPage;
 	}
 	
+	@Value("${key_1}")
+    String key1;
+    @Value("${key_2}")
+    String key2;
+	
 	@PostMapping(value="/upload")
 	public ModelAndView uploadToS3(
 			@RequestParam("file") MultipartFile image
@@ -37,7 +43,7 @@ public class ProfileController {
 		
 		ModelAndView profilePage = new ModelAndView();
 		BasicAWSCredentials cred = new BasicAWSCredentials(
-				"AKIAJIZHPHFZWP23L44Q","SoK2uavZcWLRS5PP2vtxyfvhx40j1aYwOyLae0sl"
+				key1,key2
 				);
 		AmazonS3 s3client = AmazonS3ClientBuilder
 				.standard()
